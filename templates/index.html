@@ -9,9 +9,15 @@
         canvas { display: block; }
         .star {
             position: absolute;
-            background: white;
+            background: rgb(203, 236, 112);
             border-radius: 50%;
             animation: twinkle 1s infinite alternate;
+            opacity: 0.5;
+            filter: blur(1px);
+            box-shadow: 0 0 10px rgba(203, 236, 112, 0.5);
+            z-index: 100;
+            width: 2px;
+            height: 2px;
         }
         @keyframes twinkle {
             from { opacity: 0.2; }
@@ -22,9 +28,16 @@
             top: 20px;
             width: 100%;
             text-align: center;
-            color: white;
+            color: rgb(210, 236, 137);
             font-family: Arial, sans-serif;
             z-index: 100;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgb(210, 236, 137);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-style: italic;
+            text-align: center;
         }
     </style>
 </head>
@@ -52,7 +65,7 @@
 
         // Create globe
         const geometry = new THREE.SphereGeometry(2, 32, 32);
-        const texture = new THREE.TextureLoader().load('/static/earth.jpg');
+        const texture = new THREE.TextureLoader().load('/static/eart_at_night.png');
         const material = new THREE.MeshPhongMaterial({ map: texture });
         const globe = new THREE.Mesh(geometry, material);
         scene.add(globe);

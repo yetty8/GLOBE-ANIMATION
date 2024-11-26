@@ -6,13 +6,13 @@ import requests
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# Create templates and static directories if they don't exist
+
 if not os.path.exists('templates'):
     os.makedirs('templates')
 if not os.path.exists('static'):
     os.makedirs('static')
 
-# Create HTML template
+
 
 
 @app.route('/')
