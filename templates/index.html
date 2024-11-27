@@ -9,7 +9,7 @@
         canvas { display: block; }
         .star {
             position: absolute;
-            background: rgb(203, 236, 112);
+            background: rgb(243, 245, 239);
             border-radius: 50%;
             animation: twinkle 1s infinite alternate;
             opacity: 0.5;
@@ -18,6 +18,9 @@
             z-index: 100;
             width: 2px;
             height: 2px;
+        }
+        .star:hover {
+            background: rgb(210, 236, 137);
         }
         @keyframes twinkle {
             from { opacity: 0.2; }
@@ -31,18 +34,24 @@
             color: rgb(210, 236, 137);
             font-family: Arial, sans-serif;
             z-index: 100;
-            font-size: 20px;
+            font-size: 50px;
             font-weight: bold;
-            text-shadow: 0 0 10px rgb(210, 236, 137);
+            text-shadow: 0 0 10px rgb(172, 9, 9);
             letter-spacing: 2px;
             text-transform: uppercase;
             font-style: italic;
-            text-align: center;
+            text-align: center; 
+        }
+        h1:hover {
+            color: rgb(133, 59, 194);
+            text-shadow: 0 0 10px rgb(172, 9, 9);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            
         }
     </style>
 </head>
 <body>
-    <h1>Welcome To Yetbarek Page!</h1>
+    <h1>Welcome To Yetbarek's Page!</h1>
     <script>
         // Create stars
         for(let i = 0; i < 200; i++) {
@@ -56,6 +65,90 @@
             document.body.appendChild(star);
         }
 
+        // Create moon
+        const moon = document.createElement('div');
+        moon.style.position = 'absolute';
+        moon.style.left = '50px';
+        moon.style.top = '50px';
+        moon.style.width = '100px';
+        moon.style.height = '100px';
+        moon.style.borderRadius = '50%';
+        moon.style.background = 'radial-gradient(circle at 30% 30%, #ffffff, #c7c7c7)';
+        moon.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+        moon.style.animation = 'orbit 10s infinite linear';
+        moon.style.zIndex = '100';
+        document.body.appendChild(moon);
+
+        // Create multiple shooting stars
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.style.position = 'absolute';
+            shootingStar.style.width = '4px';
+            shootingStar.style.height = '4px';
+            shootingStar.style.background = 'white';
+            shootingStar.style.borderRadius = '50%';
+            shootingStar.style.boxShadow = '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff';
+            shootingStar.style.animation = `shooting ${Math.random() * 2 + 2}s linear infinite`;
+            shootingStar.style.animationDelay = `${Math.random() * 3}s`;
+            shootingStar.style.zIndex = '99';
+            shootingStar.style.left = `${Math.random() * 100}%`;
+            shootingStar.style.top = `${Math.random() * 100}%`;
+            document.body.appendChild(shootingStar);
+        }
+
+        // Create multiple shooting stars
+        for(let i = 0; i < 5; i++) {
+            createShootingStar();
+        }
+
+        // Add shooting star animation
+        const shootingStarStyle = document.createElement('style');
+        shootingStarStyle.textContent = `
+            @keyframes shooting {
+                0% {
+                    transform: translate(0, 0) rotate(-45deg);
+                    opacity: 1;
+                    left: 0;
+                    top: 50%;
+                }
+                100% {
+                    transform: translate(100vw, -100vh) rotate(-45deg);
+                    opacity: 0;
+                    left: 100%;
+                    top: 0;
+                }
+            }
+        `;
+        document.head.appendChild(shootingStarStyle);
+
+        // Create sun
+        const sun = document.createElement('div');
+        sun.style.position = 'absolute';
+        sun.style.right = '50px';
+        sun.style.top = '50px';
+        sun.style.width = '240px';
+        sun.style.height = '240px';
+        sun.style.borderRadius = '50%';
+        sun.style.background = 'radial-gradient(circle at 30% 30%, #ffd700, #ff8c00)';
+        sun.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.8)';
+        sun.style.animation = 'pulse 2s infinite alternate';
+        sun.style.zIndex = '100';
+        document.body.appendChild(sun);
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes orbit {
+                from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+                to { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+            }
+            @keyframes pulse {
+                from { transform: scale(1); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+                to { transform: scale(1.1); box-shadow: 0 0 60px rgba(255, 215, 0, 0.9); }
+            }
+        `;
+        document.head.appendChild(style);
+
         // Three.js scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -65,7 +158,7 @@
 
         // Create globe
         const geometry = new THREE.SphereGeometry(2, 32, 32);
-        const texture = new THREE.TextureLoader().load('/static/eart_at_night.png');
+        const texture = new THREE.TextureLoader().load('/static/earth.jpg');
         const material = new THREE.MeshPhongMaterial({ map: texture });
         const globe = new THREE.Mesh(geometry, material);
         scene.add(globe);
